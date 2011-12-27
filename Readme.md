@@ -4,7 +4,7 @@ Decay is a collection of common sorting / popularity estimation algorithms emplo
 to sort for best content using votes and possibly post date.
 
 ### 0-Decay
-To compute static scores with zero decay (good for comments), use one of the non-decaying algorithms below,
+To compute static scores with zero decay (good for comments), use a non-decaying algorithm from the Usage section,
 by simply recomputing the score at each new vote:
 
 ````javascript
@@ -37,7 +37,8 @@ setTimeout(function () {
   candidates.forEach(function (c) {
     c.score = scoreFn(c.upVotes, c.dnVotes, c.date);
   });
-  // save set here so that next database call gets
+  // save set here so that next database call gets an updated ordering
+  save(candidates);
 }, 1000 * 60 * 15); // run every 15 minutes
 ````
 
@@ -50,14 +51,19 @@ Two of these algorithms decay with time, and the other is based purely on statis
 
 ### Wilson Score
 AKA Reddit's *[Best](http://blog.reddit.com/2009/10/reddits-new-comment-sorting-system.html)* comment sorting system.
+
+Statistically, it is the lower bound of the
+[Wilson Score interval](http://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval)
+at the alpha level based on supplied Z score.
+
 This is submission-time-agnostic, i.e. it does *not* decay.
 
 #### Instantiation
-The score function is created by calling `wilsonScore` optionally specifying a global zScore.
-The zScore represents the statistical confidence of the Wilson Score interval.
+The score function is created by calling `wilsonScore` optionally specifying a global `zScore`.
+The `zScore` represents the statistical confidence of the Wilson Score interval.
 
-Leave it blank and you will get `z=1.44` representing an `85%` confidence level.
-Otherwise, values through `1.0` (69%), `1.96` (95%), up to `3.3` (99.9%) could be worth experimenting with.
+Leave it blank and you will get `z=1.96` representing an `95%` confidence level in the lower bound.
+Otherwise, you could note that values through `1.0` (69%), to `3.3` (99.9%) are perhaps worthy of experiments.
 
 ````javascript
 var scoreFn = decay.wilsonScore(zScore);
