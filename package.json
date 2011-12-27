@@ -1,0 +1,19 @@
+{
+  "author": "Eirik Albrigtsen <analsandblaster@gmail.com>",
+  "name": "decay",
+  "description": "Famous sorting algorithms based on vote popularity and time",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/clux/decay.git"
+  },
+  "main": "decay.js",
+  "scripts": {
+    "test": "expresso"
+  },
+  "engines": {
+    "node": "~0.6.4"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
