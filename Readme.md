@@ -1,4 +1,4 @@
-# Decay
+# Decay ![travis build status](https://secure.travis-ci.org/clux/decay.png)
 
 Decay is a collection of common sorting / popularity estimation algorithms employed by bigger news sites
 to sort for best content using votes and possibly post date.
