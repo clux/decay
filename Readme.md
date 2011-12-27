@@ -62,7 +62,7 @@ This is submission-time-agnostic, i.e. it does *not* decay.
 The score function is created by calling `wilsonScore` optionally specifying a global `zScore`.
 The `zScore` represents the statistical confidence of the Wilson Score interval.
 
-Leave it blank and you will get `z=1.96` representing an `95%` confidence level in the lower bound.
+It will default to `z=1.96` if left out, representing a `95%` confidence level in the lower bound.
 Otherwise, you could note that values through `1.0` (69%), to `3.3` (99.9%) are perhaps worthy of experiments.
 
 ````javascript
@@ -71,6 +71,7 @@ var scoreFn = decay.wilsonScore(zScore);
 
 #### Usage
 Call it with simply the amount of upvotes and downvotes.
+
 ````javascript
 var score = scoreFn(upVotes, downVotes);
 ````
