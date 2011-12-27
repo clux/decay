@@ -18,6 +18,7 @@ exports['test wilsonScore'] = function () {
   assert.ok(s1(5, 3) < s1(5, 2), "downvotes bad");
 
   assert.ok(s1(10, 2), s2(10, 2), "higher confidence means lowers bounds");
+  console.log('wilsonScore ok');
 };
 
 
@@ -40,6 +41,7 @@ exports['test redditHot'] = function () {
 
   var h = decay.redditHot(20000); // lower number => faster decay
   assert.ok(h(5, 1, d1) < s(5, 1, d1), "faster decay => slightly lower numbers early on");
+  console.log('redditHot ok');
 };
 
 exports['test hackerHot'] = function () {
@@ -53,4 +55,5 @@ exports['test hackerHot'] = function () {
 
   var h = decay.hackerHot(3); // more gravity => faster decay
   assert.ok(h(5, d1) < s(5, d1), "more gravity => slightly lower numbers in score early on");
+  console.log('hackerHot ok');
 };
