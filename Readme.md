@@ -1,18 +1,43 @@
 # Decay
 
-Decay is a collection of common sorting algorithms employed by bigger news sites to sort for best content using votes and post date.
-To use effectively, continuously compute the score(s) required in a node process / setTimeout function on a set of suitable candidates.
+Decay is a collection of common sorting / popularity estimation algorithms employed by bigger news sites
+to sort for best content using votes and possibly post date.
+
+### 0-Decay
+To compute static scores with zero decay (good for comments), use one of the non-decaying algorithms below,
+by simply recomputing the score at each new vote:
+
+````javascript
+var decay = require('decay')
+  , scoreFn = decay.wilsonsScore();
+
+// assume req.entry is the item being voted on
+app.post('/entry/upvote', middleWare, function (req, res) {
+  // call the scoreFn with ups, downs, post_date to recompute
+  req.entry.score = scoreFn(req.entry.upVotes + 1, req.entry.dnVotes, req.entry.postDate);
+
+  // save new score in database so that new pageviews sort based on the new score
+  req.entry.save();
+});
+````
+
+Note that this works best for more static components of a page. News should decay properly.
+
+### True Decay
+To truly decay, we need to use one of the algorithms that recompute scores based on post date.
+Effective use of these involve continuously computing the score(s)
+required in a node process on a set of suitable candidates:
 
 ````javascript
 var decay = require('decay')
   , scoreFn = decay.redditHot();
 
 setTimeout(function () {
-  // loop through redis set of suitable candidates here
+  var candidates = []; // get set of suitable candidates here - perhaps via stored recent || popular items in redis
   candidates.forEach(function (c) {
     c.score = scoreFn(c.upVotes, c.dnVotes, c.date);
   });
-  // save set
+  // save set here so that next database call gets
 }, 1000 * 60 * 15); // run every 15 minutes
 ````
 
@@ -21,10 +46,11 @@ setTimeout(function () {
 Decay currently houses 3 algorithms, and each is instantiated through an exported factory for speed and brevity.
 This section will outline how to use them.
 
+Two of these algorithms decay with time, and the other is based purely on statistical popularity.
 
 ### Wilson Score
 AKA Reddit's *[Best](http://blog.reddit.com/2009/10/reddits-new-comment-sorting-system.html)* comment sorting system.
-Submission-time-agnostic.
+This is submission-time-agnostic, i.e. it does *not* decay.
 
 #### Instantiation
 The score function is created by calling `wilsonScore` optionally specifying a global zScore.
@@ -45,19 +71,19 @@ var score = scoreFn(upVotes, downVotes);
 
 
 ### Reddit Hot Sort
-Relies on dates and the difference between ups/downs.
+Based on the difference between ups/downs, and decays with time.
 Causes hive mind effects in large crowds.
 
 #### Instantiation
-Create the score function by calling `redditHot` with an optional decay parameter.
+Create the score function by calling `redditHot` with an ~_halflife_ parameter in seconds (default 45000s).
 For info on the effects on this parameter read the original [blog post](http://amix.dk/blog/post/19588) about it.
 
 ````javascript
-var scoreFn = decay.redditHot(decay);
+var scoreFn = decay.redditHot(halflife);
 ````
 
 #### Usage
-Call it with the amounts of up and down votes + a Date instance representing the post/publish date of the item.
+Call scoreFn with the amounts of up and down votes + a Date instance representing the post/publish date of the item.
 
 ````javascript
 var score = scoreFn(upVotes, downVotes, date);
@@ -65,8 +91,8 @@ var score = scoreFn(upVotes, downVotes, date);
 
 
 ### HackerNews Hot Sort
-Relies only on upvotes and submission time.
-Downvote-agnostic.
+Based on simply the amount of upvotes, and decays with time.
+Prone to advertising abuse.
 
 #### Instantiation
 Create the score function by calling `hackerHot` with an optional gravity parameter (default `1.8`).
@@ -77,7 +103,7 @@ var scoreFn = decay.hackerHot(decay);
 ````
 
 #### Usage
-Call it with the amounts of upvotes/likes + a Date instance representing the post/publish date of the item.
+Call scoreFn with the amounts of upvotes/likes + a Date instance representing the post/publish date of the item.
 
 ````javascript
 var score = scoreFn(upVotes, date);
