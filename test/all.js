@@ -5,8 +5,8 @@ var assert = require('assert')
  * Tests basic reasonable assumptions:
  *
  * If upvotes increase, the score increases
-  * If downvotes (if applicable) increases, the score decreases
-  * If dates decrease, the score decreases
+ * If downvotes (if applicable) increases, the score decreases
+ * If dates decrease, the score decreases
  * Certain instantiation parameters give a higher score than others
  */
 

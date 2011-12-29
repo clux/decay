@@ -1,7 +1,7 @@
 # Decay ![travis build status](https://secure.travis-ci.org/clux/decay.png)
 
 Decay is a collection of common sorting / popularity estimation algorithms employed by bigger news sites
-to sort for best content using votes and possibly post date.
+to sort for best content using votes and often also post date.
 
 ## Zero Decay
 To compute static scores with zero decay (good for comments), use a non-decaying algorithm from the Usage section,
@@ -62,10 +62,11 @@ This is submission-time-agnostic, i.e. it does *not* decay.
 
 ### Instantiation
 The score function is created by calling `wilsonScore` optionally specifying a global `zScore`.
-The `zScore` represents the statistical confidence of the Wilson Score interval.
+The `zScore` is a statistical value which roughly means how many standard deviations of safety you want,
+so it maps directly onto the confidence level of the Wilson Score interval.
 
 It will default to `z=1.96` if left out, representing a `95%` confidence level in the lower bound.
-Otherwise, you could note that values through `1.0` (69%), to `3.3` (99.9%) are perhaps worthy of experiments.
+Otherwise, values through `1.0` (69%), to `3.3` (99.9%) good alternatives.
 
 ````javascript
 var scoreFn = decay.wilsonScore(zScore);
