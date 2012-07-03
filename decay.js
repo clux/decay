@@ -45,7 +45,6 @@ exports.wilsonScore = function (z) {
     // z = 1.0 => ~69%, 1.96 => ~95% (default)
     z = 1.96;
   }
-  var zz = z * z;
 
   return function (ups, downs) {
     var n = ups + downs;
