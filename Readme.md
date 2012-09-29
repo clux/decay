@@ -7,7 +7,7 @@ to sort for best content using votes and often also post date.
 To compute static scores with zero decay (good for comments), use a non-decaying algorithm from the Usage section,
 by simply recomputing the score at each new vote:
 
-````javascript
+```js
 var decay = require('decay')
   , scoreFn = decay.wilsonsScore();
 
@@ -19,7 +19,7 @@ app.post('/entry/upvote', middleWare, function (req, res) {
   // save new score in database so that new pageviews sort based on the new score
   req.entry.save();
 });
-````
+```
 
 Note that this works best for more static components of a page. News should decay properly.
 
@@ -28,7 +28,7 @@ To truly decay, we need to use one of the algorithms that recompute scores based
 Effective use of these involve continuously computing the score(s)
 required in a node process on a set of suitable candidates:
 
-````javascript
+```js
 var decay = require('decay')
   , scoreFn = decay.redditHot();
 
@@ -40,7 +40,7 @@ setTimeout(function () {
   // save set here so that next database call gets an updated ordering
   save(candidates);
 }, 1000 * 60 * 15); // run every 15 minutes
-````
+```
 
 
 # Usage
@@ -68,16 +68,16 @@ so it maps directly onto the confidence level of the Wilson Score interval.
 It will default to `z=1.96` if left out, representing a `95%` confidence level in the lower bound.
 Otherwise, values through `1.0` (69%), to `3.3` (99.9%) good alternatives.
 
-````javascript
+```js
 var scoreFn = decay.wilsonScore(zScore);
-````
+```
 
 ### Usage
 Call it with simply the amount of upvotes and downvotes.
 
-````javascript
+```js
 var score = scoreFn(upVotes, downVotes);
-````
+```
 
 
 
@@ -89,16 +89,16 @@ Causes hive mind effects in large crowds.
 Create the score function by calling `redditHot` with an ~_halflife_ parameter in seconds (default 45000s).
 For info on the effects on this parameter read the original [blog post](http://amix.dk/blog/post/19588) about it.
 
-````javascript
+```js
 var scoreFn = decay.redditHot(halflife);
-````
+```
 
 ### Usage
 Call scoreFn with the amounts of up and down votes + a Date instance representing the post/publish date of the item.
 
-````javascript
+```js
 var score = scoreFn(upVotes, downVotes, date);
-````
+```
 
 
 
@@ -111,35 +111,35 @@ Prone to advertising abuse.
 Create the score function by calling `hackerHot` with an optional gravity parameter (default `1.8`).
 For info on the effects of this parameter read the original [blog post](http://amix.dk/blog/post/19574) about it.
 
-````javascript
+```js
 var scoreFn = decay.hackerHot(decay);
-````
+```
 
 ### Usage
 Call scoreFn with the amounts of upvotes/likes + a Date instance representing the post/publish date of the item.
 
-````javascript
+```js
 var score = scoreFn(upVotes, date);
-````
+```
 
 ## Installation
 
-````bash
+```bash
 $ npm install decay
-````
+```
 
 ## Running tests
 Install development dependencies
 
-````bash
+```bash
 $ npm install
-````
+```
 
 Run the tests
 
-````bash
+```bash
 $ npm test
-````
+```
 
 ## License
 MIT-Licensed. See LICENSE file for details.
