@@ -12,8 +12,16 @@
     "test": "tap ./test"
   },
   "engines": {
-    "node": ">=0.6.0"
+    "node": "*"
   },
+  "keywords": [
+    "hotsort",
+    "hackerhot",
+    "wilsonscore",
+    "popularity",
+    "sorting",
+    "voting"
+  ],
   "dependencies": {},
   "devDependencies": {
     "tap": "~0.2.5"
