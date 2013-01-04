@@ -13,8 +13,8 @@ exports.redditHot = function (decay) {
   return function (ups, downs, date) {
     var s = ups - downs
       , order = Math.log(Math.max(Math.abs(s), 1), 10)
-      , sec_age = (Date.now() - date.getTime()) / 1000;
-    return order - sec_age / decay;
+      , secAge = (Date.now() - date.getTime()) / 1000;
+    return order - secAge / decay;
   };
 };
 
@@ -26,9 +26,9 @@ exports.hackerHot = function (gravity) {
   if (gravity == null) {
     gravity = 1.8;
   }
-  return function (votes, item_date) {
-    var hour_age = (Date.now() - item_date.getTime()) / (1000 * 3600);
-    return (votes - 1) / Math.pow(hour_age + 2, gravity);
+  return function (votes, itemDate) {
+    var hourAge = (Date.now() - itemDate.getTime()) / (1000 * 3600);
+    return (votes - 1) / Math.pow(hourAge + 2, gravity);
   };
 };
 
@@ -53,7 +53,7 @@ exports.wilsonScore = function (z) {
     }
 
     var p = ups / n
-      , zzfn = z * z / (4 * n);
-    return (p + 2 * zzfn - z * Math.sqrt((zzfn / n + p * (1 - p)) / n)) / (1 + 4 * zzfn);
+      , zzfn = z*z / (4*n);
+    return (p + 2*zzfn - z*Math.sqrt((zzfn / n + p*(1 - p))/n)) / (1 + 4*zzfn);
   };
 };
