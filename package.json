@@ -11,9 +11,6 @@
   "scripts": {
     "test": "tap ./test"
   },
-  "engines": {
-    "node": "*"
-  },
   "keywords": [
     "hotsort",
     "hackerhot",
@@ -22,7 +19,6 @@
     "sorting",
     "voting"
   ],
-  "dependencies": {},
   "devDependencies": {
     "tap": "~0.4.4"
   },
