@@ -19,8 +19,9 @@
     "sorting",
     "voting"
   ],
+  "dependencies": {},
   "devDependencies": {
     "tap": "~0.4.4"
   },
-  "license": "MIT",
+  "license": "MIT"
 }
