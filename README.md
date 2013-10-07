@@ -1,33 +1,16 @@
 # decay [![Build Status](https://secure.travis-ci.org/clux/decay.png)](http://travis-ci.org/clux/decay)
 
-This library houses (atm) 3 popularity estimating algorithms employed by bigger news sites used to sort for best content:
+Thi`s library houses 3` popularity estimating algorithms employed by bigger news sites used to sort for best content:
 
-  1. wilsonScore - Reddit's _best_ comment scoring system
-  2. redditHot - Reddit's _hot_ post scoring system for news posts
-  3. hackerHot - Hackernews' scoring system
+  1. `wilsonScore` - Reddit's _best_ comment scoring system
+  2. `redditHot` - Reddit's _hot_ post scoring system for news posts
+  3. `hackerHot` - Hackernews' scoring system
 
-![Wilson score equation](https://github.com/clux/logule/raw/master/imgs/rating-equation.png.png)
+![Wilson score equation](https://github.com/clux/logule/raw/master/imgs/rating-equation.png)
 
-Algorithms either cause scores to *decay* based on distance to post time, or never decay:
+Algorithms may cause scores to *decay* based on distance to post time.
 
-## 1. Zero Decay
-Algorithms that produce a time agnostic popularity is typically good for comments. For best results, simply recompute the score at every new vote:
-
-```js
-var decay = require('decay')
-  , wilsonScore = decay.wilsonsScore();
-
-// assume req.entry is the item being voted on
-app.post('/entry/upvote', middleWare, function (req, res) {
-  // call wilsonScore with ups, downs, post_date to recompute
-  req.entry.score = wilsonScore(req.entry.upVotes + 1, req.entry.dnVotes, req.entry.postDate);
-
-  // save new score in database so that new pageviews sort 
-  save(req.entry);
-});
-```
-
-## 2. True Decay
+## 1. Decaying Algorithms
 Algorithms that are designed to decay based on time needs continual recomputation of scores. An example of doing so would be keeping track of, and periodically computing the score(s) required in a node process on a set of suitable candidates:
 
 ```js
@@ -44,12 +27,27 @@ setInterval(function () {
 }, 1000 * 60 * 5); // run every 5 minutes, say
 ```
 
-# Usage
+## 2. Non-decaying Algorithms
+Algorithms that produce a time agnostic popularity is typically good for comments. For best results, simply recompute the score at every new vote:
+
+```js
+var decay = require('decay')
+  , wilsonScore = decay.wilsonsScore();
+
+// assume req.entry is the item being voted on
+app.post('/entry/upvote', middleWare, function (req, res) {
+  // call wilsonScore with ups, downs, post_date to recompute
+  req.entry.score = wilsonScore(req.entry.upVotes + 1, req.entry.dnVotes, req.entry.postDate);
+
+  // save new score in database so that new pageviews sort 
+  save(req.entry);
+});
+```
+
+## Usage
 Decay exports three scoring function factories.
 
 Two of these algorithms decay with time, and the other is based purely on statistical popularity.
-
-## Usage
 
 ```js
 // 1. zero decay
