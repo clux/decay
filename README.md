@@ -6,11 +6,11 @@ Thi`s library houses 3` popularity estimating algorithms employed by bigger news
   2. `redditHot` - Reddit's _hot_ post scoring system for news posts
   3. `hackerHot` - Hackernews' scoring system
 
-![Wilson score equation](https://github.com/clux/logule/raw/master/imgs/rating-equation.png)
+![Wilson score equation](https://github.com/clux/decay/raw/master/imgs/rating-equation.png)
 
 Algorithms may cause scores to *decay* based on distance to post time.
 
-## 1. Decaying Algorithms
+## 1. Decaying algorithms
 Algorithms that are designed to decay based on time needs continual recomputation of scores. An example of doing so would be keeping track of, and periodically computing the score(s) required in a node process on a set of suitable candidates:
 
 ```js
@@ -27,8 +27,8 @@ setInterval(function () {
 }, 1000 * 60 * 5); // run every 5 minutes, say
 ```
 
-## 2. Non-decaying Algorithms
-Algorithms that produce a time agnostic popularity is typically good for comments. For best results, simply recompute the score at every new vote:
+## 2. Non-decaying algorithms
+Algorithms that produce a time agnostic popularity score is typically good for comments. For best results, simply recompute the score at every new vote:
 
 ```js
 var decay = require('decay')
@@ -45,7 +45,7 @@ app.post('/entry/upvote', middleWare, function (req, res) {
 ```
 
 ## Usage
-Decay exports three scoring function factories.
+Decay exports 3 scoring function factories.
 
 Two of these algorithms decay with time, and the other is based purely on statistical popularity.
 
