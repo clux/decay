@@ -1,12 +1,12 @@
 # decay [![Build Status](https://secure.travis-ci.org/clux/decay.png)](http://travis-ci.org/clux/decay)
 
-Thi`s library houses 3` popularity estimating algorithms employed by bigger news sites used to sort for best content:
+This library houses 3 popularity estimating algorithms employed by bigger news sites used to sort for best content:
 
   1. `wilsonScore` - Reddit's _best_ comment scoring system
   2. `redditHot` - Reddit's _hot_ post scoring system for news posts
   3. `hackerHot` - Hackernews' scoring system
 
-![Wilson score equation](https://github.com/clux/decay/raw/master/imgs/rating-equation.png)
+![Wilson score equation](https://github.com/clux/decay/raw/master/rating-equation.png)
 
 Algorithms may cause scores to *decay* based on distance to post time.
 
