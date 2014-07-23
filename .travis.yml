@@ -6,4 +6,5 @@ notifications:
   email: true
 
 after_script:
+  - npm run instrument
   - npm run coveralls
