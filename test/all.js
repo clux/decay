@@ -11,12 +11,17 @@ var decay = require(process.env.DECAY_COV ? '../decay-cov.js' : '../');
 
 exports.wilsonScore = function (t) {
   var s1 = decay.wilsonScore(1)
-    , s2 = decay.wilsonScore(2);
+    , s2 = decay.wilsonScore(2)
+    , s3 = decay.wilsonScore();
 
   t.ok(s1(5, 0) > s1(4, 0), "upvotes good");
   t.ok(s1(5, 3) < s1(5, 2), "downvotes bad");
 
   t.ok(s1(10, 2) > s2(10, 2), "higher confidence means lowers bounds");
+
+  t.equal(s3(0, 0), 0, "no votes gives a zero");
+  t.ok(s3(0, 100000) > 0, "scores always > 0 (even if all downvotes)");
+  t.ok(s3(1000000, 0) < 1, "and always less than 1");
   t.done();
 };
 
