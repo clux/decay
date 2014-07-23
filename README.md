@@ -1,4 +1,9 @@
-# decay [![Build Status](https://secure.travis-ci.org/clux/decay.png)](http://travis-ci.org/clux/decay)
+# decay
+[![npm status](http://img.shields.io/npm/v/decay.svg)](https://www.npmjs.org/package/decay)
+[![build status](https://secure.travis-ci.org/clux/decay.svg)](http://travis-ci.org/clux/decay)
+[![dependency status](https://david-dm.org/clux/decay.svg)](https://david-dm.org/clux/decay)
+[![coverage status](http://img.shields.io/coveralls/clux/decay.svg)](https://coveralls.io/r/clux/decay)
+[![stable](http://img.shields.io/badge/stability-stable-74C614.svg)](http://nodejs.org/api/documentation.html#documentation_stability_index)
 
 This library houses 3 popularity estimating algorithms employed by bigger news sites used to sort for best content:
 

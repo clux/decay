@@ -3,14 +3,12 @@
   "name": "decay",
   "description": "Famous sorting algorithms based on vote popularity and time",
   "version": "1.0.4",
+  "stability": "stable",
   "repository": {
     "type": "git",
     "url": "clux/decay"
   },
   "main": "decay.js",
-  "scripts": {
-    "test": "tap ./test"
-  },
   "keywords": [
     "hotsort",
     "hackerhot",
@@ -19,9 +17,17 @@
     "sorting",
     "voting"
   ],
+  "scripts": {
+    "test": "$(npm bin)/nodeunit --reporter=verbose test/*.js",
+    "instrument": "$(npm bin)/jscoverage decay.js",
+    "coverage": "DECAY_COV=1 $(npm bin)/nodeunit --reporter=lcov test/*.js",
+    "coveralls": "npm run coverage | coveralls"
+  },
   "dependencies": {},
   "devDependencies": {
-    "tap": "~0.4.4"
+    "coveralls": "^2.11.1",
+    "jscoverage": "^0.5.5",
+    "nodeunit": "^0.9.0"
   },
   "license": "MIT"
 }

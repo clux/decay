@@ -4,3 +4,6 @@ node_js:
 
 notifications:
   email: true
+
+after_script:
+  - npm run coveralls

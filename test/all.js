@@ -1,5 +1,4 @@
-var test  = require('tap').test
-  , decay = require('../decay');
+var decay = require(process.env.DECAY_COV ? '../decay-cov.js' : '../');
 
 /**
  * Tests basic reasonable assumptions:
@@ -10,7 +9,7 @@ var test  = require('tap').test
  * Certain instantiation parameters give a higher score than others
  */
 
-test("wilsonScore", function (t) {
+exports.wilsonScore = function (t) {
   var s1 = decay.wilsonScore(1)
     , s2 = decay.wilsonScore(2);
 
@@ -18,8 +17,8 @@ test("wilsonScore", function (t) {
   t.ok(s1(5, 3) < s1(5, 2), "downvotes bad");
 
   t.ok(s1(10, 2) > s2(10, 2), "higher confidence means lowers bounds");
-  t.end();
-});
+  t.done();
+};
 
 
 // decaying algorithms need some dates
@@ -29,7 +28,7 @@ d1.setTime(d1.getTime() - 1 * 60 * 1000); // turn back one minute
 d2.setTime(d2.getTime() - 61 * 60 * 1000); // turn back one hour extra
 
 
-test("redditHot", function (t) {
+exports.redditHot = function (t) {
   var s = decay.redditHot();
 
   t.ok(s(10, 2, d1) > s(9, 2, d1), "upvotes good");
@@ -41,10 +40,10 @@ test("redditHot", function (t) {
 
   var h = decay.redditHot(20000); // lower number => faster decay
   t.ok(h(5, 1, d1) < s(5, 1, d1), "faster decay => slightly lower numbers early on");
-  t.end();
-});
+  t.done();
+};
 
-test('hackerHot', function (t) {
+exports.hackerHot = function (t) {
   var s = decay.hackerHot();
 
   t.ok(s(10, d1) > s(9, d1), "upvotes good");
@@ -55,5 +54,5 @@ test('hackerHot', function (t) {
 
   var h = decay.hackerHot(3); // more gravity => faster decay
   t.ok(h(5, d1) < s(5, d1), "more gravity => slightly lower numbers in score early on");
-  t.end();
-});
+  t.done();
+};
