@@ -18,9 +18,9 @@
     "voting"
   ],
   "scripts": {
-    "test": "$(npm bin)/nodeunit --reporter=verbose test/*.js",
-    "instrument": "$(npm bin)/jscoverage decay.js",
-    "coverage": "DECAY_COV=1 $(npm bin)/nodeunit --reporter=lcov test/*.js",
+    "test": "nodeunit --reporter=verbose test/*.js",
+    "instrument": "jscoverage decay.js",
+    "coverage": "DECAY_COV=1 nodeunit --reporter=lcov test/*.js",
     "coveralls": "npm run coverage | coveralls"
   },
   "dependencies": {},
