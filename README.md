@@ -37,7 +37,7 @@ Algorithms that produce a time agnostic popularity score is typically good for c
 
 ```js
 var decay = require('decay')
-  , wilsonScore = decay.wilsonsScore();
+  , wilsonScore = decay.wilsonScore();
 
 // assume req.entry is the item being voted on
 app.post('/entry/upvote', middleWare, function (req, res) {
