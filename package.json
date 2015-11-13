@@ -3,7 +3,6 @@
   "name": "decay",
   "description": "Famous sorting algorithms based on vote popularity and time",
   "version": "1.0.8",
-  "stability": "stable",
   "repository": {
     "type": "git",
     "url": "clux/decay"
@@ -19,13 +18,11 @@
   ],
   "scripts": {
     "test": "nodeunit --reporter=verbose test/*.js",
-    "instrument": "jscoverage decay.js",
-    "coverage": "DECAY_COV=1 nodeunit --reporter=lcov test/*.js",
-    "coveralls": "npm run coverage | coveralls"
+    "precoverage": "jscoverage decay.js",
+    "coverage": "DECAY_COV=1 nodeunit --reporter=lcov test/*.js"
   },
   "dependencies": {},
   "devDependencies": {
-    "coveralls": "^2.11.1",
     "jscoverage": "^0.5.5",
     "nodeunit": "^0.9.0"
   },

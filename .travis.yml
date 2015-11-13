@@ -1,10 +1,17 @@
 language: node_js
+sudo: false
+
 node_js:
   - 0.10
+  - 4
+  - node
 
 notifications:
-  email: true
+  email: false
+
+before_script:
+  - npm link
 
 after_script:
-  - npm run instrument
-  - npm run coveralls
+  - npm install coveralls
+  - npm run coverage | coveralls
