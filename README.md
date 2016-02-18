@@ -63,7 +63,7 @@ var redditHotScore = decay.redditHot(halflife);
 var score = redditHotScore(upVotes, downVotes, date);
 
 // 3. decays
-var hackerHotScore = decay.hackerHot(decay);
+var hackerHotScore = decay.hackerHot(gravity);
 var score = hackerHotScore(upVotes, date);
 ```
 
