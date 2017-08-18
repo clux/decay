@@ -27,7 +27,7 @@ setInterval(function () {
     c.score = hotScore(c.upVotes, c.dnVotes, c.date);
     // save so that next GET /entry/ gets an updated ordering
     save(c);
-  });  
+  });
 }, 1000 * 60 * 5); // run every 5 minutes, say
 ```
 
@@ -43,7 +43,7 @@ app.post('/entry/upvote', middleWare, function (req, res) {
   // call wilsonScore with ups, downs, post_date to recompute
   req.entry.score = wilsonScore(req.entry.upVotes + 1, req.entry.dnVotes, req.entry.postDate);
 
-  // save new score in database so that new pageviews sort 
+  // save new score in database so that new pageviews sort
   save(req.entry);
 });
 ```
@@ -69,7 +69,7 @@ var score = hackerHotScore(upVotes, date);
 
 ## Parameter Explanation
 ### 1. Wilson Score
-AKA Reddit's *[Best](http://blog.reddit.com/2009/10/reddits-new-comment-sorting-system.html)* comment sorting system.
+AKA Reddit's *[Best](http://blog.reddit.com/2009/10/reddits-new-comment-sorting-system.html)* comment sorting system. [Source](https://github.com/reddit/reddit/blob/bd922104b971a5c6794b199f364a06fdf61359a2/r2/r2/lib/db/_sorts.pyx#L70-L85)
 
 Statistically, it is the lower bound of the [Wilson Score interval](http://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval) at the alpha level based on supplied Z score.
 
@@ -82,7 +82,7 @@ It will default to `z=1.96` if left out, representing a `95%` confidence level i
 Based on the difference between ups/downs, and decays with time. Causes hive mind effects in large crowds.
 
 An optional _halflife_ parameter can be passed to the exported `redditHot` factory.
-The half-life defaults to 45000 [s]. For info on the effects on this parameter read the original [blog post](http://amix.dk/blog/post/19588) about it.
+The half-life defaults to 45000 [s]. For info on the effects on this parameter read the original [blog post](http://amix.dk/blog/post/19588) about it. See also the canonical [reddit source version](https://github.com/reddit/reddit/blob/bd922104b971a5c6794b199f364a06fdf61359a2/r2/r2/lib/db/_sorts.pyx#L47-L58).
 
 ### 3. HackerNews Hot Sort
 Based on simply the amount of upvotes, and decays with time. Prone to advertising abuse.
