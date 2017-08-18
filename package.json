@@ -2,7 +2,7 @@
   "author": "Eirik Albrigtsen <analsandblaster@gmail.com>",
   "name": "decay",
   "description": "Famous sorting algorithms based on vote popularity and time",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "repository": {
     "type": "git",
     "url": "clux/decay"
