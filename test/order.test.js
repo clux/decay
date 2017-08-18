@@ -42,6 +42,8 @@ test('redditHot', function *(t) {
 
   t.ok(hot(5, 1, d1) > hot(5, 1, d2), 'age causes decay');
 
+  t.ok(hot(5, 2, d1) > hot(1, 5, d2), 'sign sanity');
+
   const hotLow = decay.redditHot(20000); // lower number => faster decay
   t.ok(hotLow(5, 1, d1) < hot(5, 1, d1), 'faster decay => slightly lower numbers early on');
 });

@@ -12,9 +12,10 @@ exports.redditHot = function (decay) {
   }
   return function (ups, downs, date) {
     var s = ups - downs
+      , sign = Math.sign(s)
       , order = Math.log(Math.max(Math.abs(s), 1)) / Math.LN10
       , secAge = (Date.now() - date.getTime()) / 1000;
-    return order - secAge / decay;
+    return sign*order - secAge / decay;
   };
 };
 
