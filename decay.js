@@ -54,7 +54,7 @@ exports.wilsonScore = function (z) {
     }
 
     var p = ups / n
-      , zzfn = z*z / (4*n);
-    return (p + 2*zzfn - z*Math.sqrt((zzfn / n + p*(1 - p))/n)) / (1 + 4*zzfn);
+      , sqrtexpr = ( p*(1-p) + z*z/(4*n) ) / n;
+    return ( p + z*z/(2*n) - z*Math.sqrt(sqrtexpr) ) / (1+z*z/n);
   };
 };

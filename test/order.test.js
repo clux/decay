@@ -21,8 +21,16 @@ test('wilsonScore', function *(t) {
   t.ok(s1(10, 2) > s2(10, 2), 'higher confidence means lowers bounds');
 
   t.equal(s3(0, 0), 0, 'no votes gives a zero');
-  t.ok(s3(0, 100000) > 0, 'scores always > 0 (even if all downvotes)');
+  t.ok(s3(0, 100000) >= 0, 'scores always >= 0 (even if all downvotes)');
   t.ok(s3(1000000, 0) < 1, 'and always less than 1');
+
+  // lock down some values - verified with redit's python version
+  t.eq(s3(1, 0), 0.20654329147389294, '1 ups 0 downs');
+  t.eq(s3(10, 10), 0.2992949144298199, '10 ups 10 downs');
+  t.eq(s3(10, 0), 0.7224598312333834, '10 ups 0 downs');
+  t.eq(s3(0, 10), 0, '0 ups 10 downs');
+  t.eq(s3(100, 50), 0.5878960768592671, '100 ups 50 downs');
+  t.eq(s3(50, 100), 0.2628864565745068, '50 ups 100 downs');
 });
 
 
@@ -56,5 +64,5 @@ test('hackerHot', function *(t) {
   t.ok(hhot(5, d1) > hhot(5, d2), 'age causes decay');
 
   var hhothigh = decay.hackerHot(3); // more gravity => faster decay
-  t.ok(hhothigh(5, d1), hhot(5, d1), 'more gravity => slightly lower numbers in score early on');
+  t.ok(hhothigh(5, d1) < hhot(5, d1), 'more gravity => slightly lower numbers in score early on');
 });
