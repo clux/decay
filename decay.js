@@ -3,7 +3,7 @@
 /**
  * Reddit's hot sort
  * (popularized by reddit's news ranking)
- * http://amix.dk/blog/post/19588
+ * https://medium.com/hacking-and-gonzo/how-reddit-ranking-algorithms-work-ef111e33d0d9
  * Corrected for decay errors in post
  */
 exports.redditHot = function (decay) {
@@ -21,7 +21,7 @@ exports.redditHot = function (decay) {
 
 /**
  * Hackernews' hot sort
- * http://amix.dk/blog/post/19574
+ * https://medium.com/hacking-and-gonzo/how-hacker-news-ranking-algorithm-works-1d9b0cf2c08d
  */
 exports.hackerHot = function (gravity) {
   if (gravity == null) {

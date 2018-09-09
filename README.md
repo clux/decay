@@ -82,12 +82,12 @@ It will default to `z=1.96` if left out, representing a `95%` confidence level i
 Based on the difference between ups/downs, and decays with time. Causes hive mind effects in large crowds.
 
 An optional _halflife_ parameter can be passed to the exported `redditHot` factory.
-The half-life defaults to 45000 [s]. For info on the effects on this parameter read the original [blog post](http://amix.dk/blog/post/19588) about it. See also the canonical [reddit source version](https://github.com/reddit/reddit/blob/bd922104b971a5c6794b199f364a06fdf61359a2/r2/r2/lib/db/_sorts.pyx#L47-L58).
+The half-life defaults to 45000 [s]. For info on the effects on this parameter read the original [blog post](https://medium.com/hacking-and-gonzo/how-reddit-ranking-algorithms-work-ef111e33d0d9) about it. See also the canonical [reddit source version](https://github.com/reddit/reddit/blob/bd922104b971a5c6794b199f364a06fdf61359a2/r2/r2/lib/db/_sorts.pyx#L47-L58).
 
 ### 3. HackerNews Hot Sort
 Based on simply the amount of upvotes, and decays with time. Prone to advertising abuse.
 
-An optional `gravity` parameter (defaulting to `1.8`) can be passed to the exported `hackerHot` factory. For info on the effects of this parameter read the original [blog post](http://amix.dk/blog/post/19574) about it.
+An optional `gravity` parameter (defaulting to `1.8`) can be passed to the exported `hackerHot` factory. For info on the effects of this parameter read the original [blog post](https://medium.com/hacking-and-gonzo/how-hacker-news-ranking-algorithm-works-1d9b0cf2c08d) about it.
 
 ## Installation
 
